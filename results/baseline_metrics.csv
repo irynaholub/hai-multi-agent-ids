@@ -1,0 +1,2 @@
+method,variables_used,n_estimators,contamination,precision,recall,f1,accuracy,tp,fp,fn,tn,attack_samples,predicted_attack_samples,total_samples,true_intervals,predicted_intervals,detected_true_intervals,useful_predicted_intervals,false_alarm_intervals,interval_precision,interval_recall,interval_f1
+IsolationForest_baseline,38,200,0.05,0.21594335911891963,0.289353478566409,0.24731586455439597,0.9295007032348804,3294,11960,8090,261056,11384,15254,284400,52,2421,23,129,2292,0.05328376703841388,0.4423076923076923,0.09510987161609848

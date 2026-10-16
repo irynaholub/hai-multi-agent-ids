@@ -1,0 +1,2 @@
+method,precision,recall,f1,accuracy,tp,fp,fn,tn,attack_samples,predicted_attack_samples,total_samples,true_intervals,predicted_intervals,detected_true_intervals,useful_predicted_intervals,false_alarm_intervals,interval_precision,interval_recall,interval_f1
+multi_agent_cross_residual,0.8125717566016073,0.24868236120871398,0.3808178638687113,0.9676300984528833,2831,653,8553,272363,11384,3484,284400,52,91,18,66,25,0.7252747252747253,0.34615384615384615,0.4686390532544379
