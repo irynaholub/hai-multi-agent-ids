@@ -1,0 +1,1284 @@
+{
+  "detectors": [
+    {
+      "detector_id": "D1-SIGNAL-VALIDITY",
+      "detector_class": "D1",
+      "purpose": "Per-tag admissibility of every recorded value.",
+      "inputs": [
+        "P1_B2004",
+        "P1_B2016",
+        "P1_B3004",
+        "P1_B3005",
+        "P1_B4002",
+        "P1_B4005",
+        "P1_B400B",
+        "P1_B4022",
+        "P1_FCV01D",
+        "P1_FCV01Z",
+        "P1_FCV02D",
+        "P1_FCV02Z",
+        "P1_FCV03D",
+        "P1_FCV03Z",
+        "P1_FT01",
+        "P1_FT01Z",
+        "P1_FT02",
+        "P1_FT02Z",
+        "P1_FT03",
+        "P1_FT03Z",
+        "P1_LCV01D",
+        "P1_LCV01Z",
+        "P1_LIT01",
+        "P1_PCV01D",
+        "P1_PCV01Z",
+        "P1_PCV02D",
+        "P1_PCV02Z",
+        "P1_PIT01",
+        "P1_PIT01_HH",
+        "P1_PIT02",
+        "P1_PP01AD",
+        "P1_PP01AR",
+        "P1_PP01BD",
+        "P1_PP01BR",
+        "P1_PP02D",
+        "P1_PP02R",
+        "P1_PP04",
+        "P1_PP04SP",
+        "P1_SOL01D",
+        "P1_SOL03D",
+        "P1_STSP",
+        "P1_TIT01",
+        "P1_TIT02",
+        "P1_TIT03",
+        "P2_24Vdc",
+        "P2_ATSW_Lamp",
+        "P2_AutoGo",
+        "P2_AutoSD",
+        "P2_Emerg",
+        "P2_MASW",
+        "P2_MASW_Lamp",
+        "P2_ManualGO",
+        "P2_ManualSD",
+        "P2_OnOff",
+        "P2_RTR",
+        "P2_SCO",
+        "P2_SCST",
+        "P2_SIT01",
+        "P2_TripEx",
+        "P2_VIBTR01",
+        "P2_VTR01",
+        "P2_VIBTR02",
+        "P2_VTR02",
+        "P2_VIBTR03",
+        "P2_VTR03",
+        "P2_VIBTR04",
+        "P2_VTR04",
+        "P2_VT01",
+        "P3_FIT01",
+        "P3_LCP01D",
+        "P3_LCV01D",
+        "P3_LH01",
+        "P3_LIT01",
+        "P3_LL01",
+        "P3_PIT01",
+        "P4_HT_FD",
+        "P4_HT_PO",
+        "P4_HT_PS",
+        "P4_LD",
+        "P4_ST_FD",
+        "P4_ST_GOV",
+        "P4_ST_LD",
+        "P4_ST_PO",
+        "P4_ST_PS",
+        "P4_ST_PT01",
+        "P4_ST_TT01"
+      ],
+      "monitored_invariant": "Each tag stays inside its documented engineering range; Boolean tags take only 0/1; no impossible jumps between consecutive samples.",
+      "training_requirement": "none",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D1-P1-DISCRETE-CONSISTENCY",
+      "detector_class": "D1",
+      "purpose": "Logical consistency of boiler pumps and solenoid valves.",
+      "inputs": [
+        "P1_STSP",
+        "P1_PP01AD",
+        "P1_PP01AR",
+        "P1_PP01BD",
+        "P1_PP01BR",
+        "P1_PP02D",
+        "P1_PP02R",
+        "P1_SOL01D",
+        "P1_SOL03D"
+      ],
+      "monitored_invariant": "Every running state matches its start command within a bounded delay; supply and drain valves are not open at the same time; pump commands are consistent with the DCS start/stop state.",
+      "training_requirement": "none",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D1-P1-PRESSURE-PROTECTION",
+      "detector_class": "D1",
+      "purpose": "Boiler pressure protection group.",
+      "inputs": [
+        "P1_PIT01",
+        "P1_PIT01_HH",
+        "P1_PCV01D",
+        "P1_PCV02D"
+      ],
+      "monitored_invariant": "P1_PIT01 stays below P1_PIT01_HH, and P1_PIT01_HH itself does not change outside a commissioning action.",
+      "training_requirement": "none",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D1-P2-TRIP-LOGIC",
+      "detector_class": "D1",
+      "purpose": "Turbine over-speed and over-vibration protection, including the constancy of the protection settings.",
+      "inputs": [
+        "P2_SIT01",
+        "P2_RTR",
+        "P2_VIBTR01",
+        "P2_VIBTR02",
+        "P2_VIBTR03",
+        "P2_VIBTR04",
+        "P2_VTR01",
+        "P2_VTR02",
+        "P2_VTR03",
+        "P2_VTR04",
+        "P2_Emerg",
+        "P2_TripEx",
+        "P2_OnOff"
+      ],
+      "monitored_invariant": "Trip state follows the documented relation between measured speed, the speed trip rate and the four vibration limits; thresholds remain constant; the trip is only cleared by the documented reset command.",
+      "training_requirement": "none",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D1-P2-MODE-INTERLOCK",
+      "detector_class": "D1",
+      "purpose": "Turbine mode selection, indicator lamps and setpoint arbitration.",
+      "inputs": [
+        "P2_OnOff",
+        "P2_MASW",
+        "P2_MASW_Lamp",
+        "P2_ATSW_Lamp",
+        "P2_AutoGo",
+        "P2_ManualGO",
+        "P2_AutoSD",
+        "P2_ManualSD"
+      ],
+      "monitored_invariant": "Lamps mirror the selector; exactly one speed setpoint is active for the selected mode; start commands only appear in an allowed mode.",
+      "training_requirement": "none",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D1-P3-LEVEL-LIMITS",
+      "detector_class": "D1",
+      "purpose": "Ordering and admissibility of the reservoir level band.",
+      "inputs": [
+        "P3_LH01",
+        "P3_LL01",
+        "P3_LIT01"
+      ],
+      "monitored_invariant": "The low setpoint stays strictly below the high setpoint, both stay inside the configured band, and the measured level does not leave the physical range.",
+      "training_requirement": "none",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D2-P1-TEMPERATURE",
+      "detector_class": "D2",
+      "purpose": "Univariate health of the three boiler temperature measurements.",
+      "inputs": [
+        "P1_TIT01",
+        "P1_TIT02",
+        "P1_TIT03"
+      ],
+      "monitored_invariant": "Stable conditional mean and variance, absence of slow drift, absence of frozen or quantised behaviour.",
+      "training_requirement": "calibration",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D2-P1-HYDRAULIC",
+      "detector_class": "D2",
+      "purpose": "Univariate health of the boiler flow, pressure and level measurements.",
+      "inputs": [
+        "P1_PIT01",
+        "P1_PIT02",
+        "P1_LIT01",
+        "P1_FT01",
+        "P1_FT01Z",
+        "P1_FT02",
+        "P1_FT02Z",
+        "P1_FT03",
+        "P1_FT03Z"
+      ],
+      "monitored_invariant": "Stationarity within a mode, bounded noise level, no step offsets and no stuck values.",
+      "training_requirement": "calibration",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D2-P2-VIBRATION",
+      "detector_class": "D2",
+      "purpose": "Baseline envelope of the vibration and phase reference channels.",
+      "inputs": [
+        "P2_VIBTR01",
+        "P2_VIBTR02",
+        "P2_VIBTR03",
+        "P2_VIBTR04",
+        "P2_VT01"
+      ],
+      "monitored_invariant": "Stable amplitude envelope and noise structure of each probe at a given operating speed.",
+      "training_requirement": "calibration",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D2-P2-AUX-SUPPLY",
+      "detector_class": "D2",
+      "purpose": "Stability of the turbine DCS field supply.",
+      "inputs": [
+        "P2_24Vdc"
+      ],
+      "monitored_invariant": "Near-constant voltage with small dispersion and no drift.",
+      "training_requirement": "calibration",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D2-P3-SENSORS",
+      "detector_class": "D2",
+      "purpose": "Univariate health of the water treatment measurements.",
+      "inputs": [
+        "P3_FIT01",
+        "P3_PIT01",
+        "P3_LIT01"
+      ],
+      "monitored_invariant": "Regime-conditioned stability, bounded noise, no frozen values.",
+      "training_requirement": "calibration",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D3-P1-SETPOINT-CONFIG",
+      "detector_class": "D3",
+      "purpose": "Admissible joint configuration of boiler setpoints and discrete states.",
+      "inputs": [
+        "P1_B2004",
+        "P1_B2016",
+        "P1_B3004",
+        "P1_B3005",
+        "P1_B400B",
+        "P1_B4002",
+        "P1_B4022",
+        "P1_PP04SP",
+        "P1_STSP",
+        "P1_PP01AD",
+        "P1_PP01BD",
+        "P1_PP02D",
+        "P1_SOL01D",
+        "P1_SOL03D"
+      ],
+      "monitored_invariant": "The combination of all boiler setpoints and equipment states belongs to the set of configurations observed in normal operation, even when each value is individually inside its range.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D3-P2-VIB-PATTERN",
+      "detector_class": "D3",
+      "purpose": "Joint configuration of the four vibration channels.",
+      "inputs": [
+        "P2_VIBTR01",
+        "P2_VIBTR02",
+        "P2_VIBTR03",
+        "P2_VIBTR04",
+        "P2_VT01",
+        "P2_SIT01"
+      ],
+      "monitored_invariant": "The four probe values form a consistent two-plane displacement pattern for the current speed; a single shifted channel is abnormal even if it stays within its own limit.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D3-P4-DISPATCH-CONFIG",
+      "detector_class": "D3",
+      "purpose": "Admissible combinations of grid load and machine dispatch.",
+      "inputs": [
+        "P4_ST_PS",
+        "P4_HT_PS",
+        "P4_LD",
+        "P4_ST_LD"
+      ],
+      "monitored_invariant": "The scheduled demands of the two machines and the total load form a configuration that was seen in normal operation.",
+      "training_requirement": "normal-data-training",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D4-P1-SEQUENCE",
+      "detector_class": "D4",
+      "purpose": "Startup, shutdown and switching sequences of the boiler equipment.",
+      "inputs": [
+        "P1_STSP",
+        "P1_PP01AD",
+        "P1_PP01AR",
+        "P1_PP01BD",
+        "P1_PP01BR",
+        "P1_PP02D",
+        "P1_PP02R",
+        "P1_SOL01D",
+        "P1_SOL03D"
+      ],
+      "monitored_invariant": "Order, direction and dwell time of discrete transitions match the sequences observed in normal operation.",
+      "training_requirement": "normal-data-training",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D4-P1-THERMAL-DYNAMICS",
+      "detector_class": "D4",
+      "purpose": "Temporal evolution of the boiler thermal variables.",
+      "inputs": [
+        "P1_TIT01",
+        "P1_TIT02",
+        "P1_TIT03",
+        "P1_FCV01D",
+        "P1_FCV02D",
+        "P1_FT02Z",
+        "P1_PP04",
+        "P1_B4002"
+      ],
+      "monitored_invariant": "Thermal inertia and dead time: the temperature trajectory that follows a given valve and flow history stays within the learned envelope.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D4-P2-SPEED-DYNAMICS",
+      "detector_class": "D4",
+      "purpose": "Ramp and engagement dynamics of the turbine speed.",
+      "inputs": [
+        "P2_AutoSD",
+        "P2_ManualSD",
+        "P2_SCO",
+        "P2_SIT01",
+        "P2_MASW"
+      ],
+      "monitored_invariant": "Speed changes follow the documented constant-rate ramp and PID engagement behaviour; inertia forbids abrupt speed changes.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D4-P2-DISCRETE-SEQUENCE",
+      "detector_class": "D4",
+      "purpose": "Operator interaction and trip/reset sequences of the turbine.",
+      "inputs": [
+        "P2_OnOff",
+        "P2_AutoGo",
+        "P2_ManualGO",
+        "P2_MASW",
+        "P2_MASW_Lamp",
+        "P2_ATSW_Lamp",
+        "P2_Emerg",
+        "P2_TripEx"
+      ],
+      "monitored_invariant": "Button, selector and trip transitions occur in learned orders with plausible dwell times.",
+      "training_requirement": "normal-data-training",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D4-P3-LEVEL-CYCLE",
+      "detector_class": "D4",
+      "purpose": "Pumped-storage fill and drain cycle.",
+      "inputs": [
+        "P3_LIT01",
+        "P3_LCP01D",
+        "P3_LCV01D",
+        "P3_LH01",
+        "P3_LL01",
+        "P3_FIT01"
+      ],
+      "monitored_invariant": "Cycle period, fill and drain slopes, and the alternation between pumping and discharge phases stay within the learned pattern.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D4-P4-DISPATCH-DYNAMICS",
+      "detector_class": "D4",
+      "purpose": "Temporal response of the simulated machines to dispatch changes.",
+      "inputs": [
+        "P4_ST_PS",
+        "P4_ST_LD",
+        "P4_ST_GOV",
+        "P4_ST_PO",
+        "P4_HT_PS",
+        "P4_HT_PO",
+        "P4_LD"
+      ],
+      "monitored_invariant": "Governor delay, ramp rate and settling behaviour after a demand change match normal operation.",
+      "training_requirement": "normal-data-training",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-PC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Closure of the boiler pressure control loop.",
+      "inputs": [
+        "P1_B2016",
+        "P1_B2004",
+        "P1_PCV01D",
+        "P1_PCV01Z",
+        "P1_PCV02D",
+        "P1_PCV02Z",
+        "P1_PIT01"
+      ],
+      "monitored_invariant": "Measured pressure tracks the setpoint with a bounded steady-state error, and the split-range valve pattern is the one expected for that error.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-LC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Closure of the boiler level control loop.",
+      "inputs": [
+        "P1_B3004",
+        "P1_LCV01D",
+        "P1_LCV01Z",
+        "P1_LIT01",
+        "P1_FCV03D"
+      ],
+      "monitored_invariant": "Level tracks its setpoint given the level valve position and the feedforward from the outflow valve.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-FC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Closure of the boiler flowrate control loop.",
+      "inputs": [
+        "P1_B3005",
+        "P1_B400B",
+        "P1_FCV03D",
+        "P1_FCV03Z",
+        "P1_FT03",
+        "P1_FT03Z",
+        "P1_FT02",
+        "P1_FT02Z"
+      ],
+      "monitored_invariant": "Measured outflow tracks its setpoint through the flow valve, and the raw and converted flow representations stay mutually consistent.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P1-TC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Closure of the boiler temperature cascade.",
+      "inputs": [
+        "P1_B4022",
+        "P1_B4002",
+        "P1_B4005",
+        "P1_FCV01D",
+        "P1_FCV01Z",
+        "P1_FCV02D",
+        "P1_FCV02Z",
+        "P1_TIT01",
+        "P1_FT02Z"
+      ],
+      "monitored_invariant": "Outer PID output, inner flow demand and the resulting outlet temperature are mutually consistent, including the flow feedforward.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-CC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Cooling loop activation consistency.",
+      "inputs": [
+        "P1_PP04SP",
+        "P1_PP04",
+        "P1_TIT03"
+      ],
+      "monitored_invariant": "The cooler pump output is the documented activation function of the main tank temperature relative to its setpoint.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P1-VALVE-TRACKING",
+      "detector_class": "D5",
+      "purpose": "Command-to-position tracking of all six boiler valves.",
+      "inputs": [
+        "P1_FCV01D",
+        "P1_FCV01Z",
+        "P1_FCV02D",
+        "P1_FCV02Z",
+        "P1_FCV03D",
+        "P1_FCV03Z",
+        "P1_LCV01D",
+        "P1_LCV01Z",
+        "P1_PCV01D",
+        "P1_PCV01Z",
+        "P1_PCV02D",
+        "P1_PCV02Z"
+      ],
+      "monitored_invariant": "Each measured valve position follows its command within a bounded lag, deadband and rate limit.",
+      "training_requirement": "calibration",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-MASS-BALANCE",
+      "detector_class": "D5",
+      "purpose": "Mass balance of the return water tank.",
+      "inputs": [
+        "P1_FT01Z",
+        "P1_FT03Z",
+        "P1_LIT01"
+      ],
+      "monitored_invariant": "The rate of change of the tank level is proportional to the difference between inflow and outflow.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P1-HEAT-BALANCE",
+      "detector_class": "D5",
+      "purpose": "Energy balance across the heat exchanger.",
+      "inputs": [
+        "P1_TIT01",
+        "P1_TIT02",
+        "P1_FT02Z",
+        "P1_FCV01D",
+        "P1_FCV02D",
+        "P1_PIT01"
+      ],
+      "monitored_invariant": "The outlet temperature is consistent with the heat-source temperature, the heating water flow and the valve opening; heat only flows from hot to cold.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P1-PUMP-HYDRAULICS",
+      "detector_class": "D5",
+      "purpose": "Consistency between pump running states and hydraulic response.",
+      "inputs": [
+        "P1_PP01AR",
+        "P1_PP01BR",
+        "P1_PP02R",
+        "P1_PIT02",
+        "P1_PIT01",
+        "P1_FT01Z"
+      ],
+      "monitored_invariant": "Discharge pressure and flow belong to the regime implied by which pumps are running.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P2-SC-LOOP",
+      "detector_class": "D5",
+      "purpose": "Closure of the turbine speed control loop.",
+      "inputs": [
+        "P2_AutoSD",
+        "P2_ManualSD",
+        "P2_MASW",
+        "P2_SCO",
+        "P2_SIT01"
+      ],
+      "monitored_invariant": "Measured speed tracks the active setpoint through the controller output, with the mode selecting which setpoint applies.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P2-VIB-SPEED",
+      "detector_class": "D5",
+      "purpose": "Relation between rotor speed and measured vibration.",
+      "inputs": [
+        "P2_VIBTR01",
+        "P2_VIBTR02",
+        "P2_VIBTR03",
+        "P2_VIBTR04",
+        "P2_VT01",
+        "P2_SIT01"
+      ],
+      "monitored_invariant": "Vibration amplitudes and the phase reference follow the speed-dependent relation of the machine.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P3-LOOP-HYDRAULICS",
+      "detector_class": "D5",
+      "purpose": "Level control closure and pump/valve hydraulics of the water treatment process.",
+      "inputs": [
+        "P3_LH01",
+        "P3_LL01",
+        "P3_LCP01D",
+        "P3_LCV01D",
+        "P3_LIT01",
+        "P3_FIT01",
+        "P3_PIT01"
+      ],
+      "monitored_invariant": "Inflow and inlet pressure follow the pump speed command, the level follows the net flow, and the level stays inside the commanded band.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P4-STEAM-TRANSFER",
+      "detector_class": "D5",
+      "purpose": "Consistency of the boiler-to-simulator signal path.",
+      "inputs": [
+        "P1_PIT01",
+        "P1_TIT01",
+        "P4_ST_PT01",
+        "P4_ST_TT01"
+      ],
+      "monitored_invariant": "The digitised steam pressure and temperature in the simulator are a fixed scaling of the measured boiler pressure and temperature, with a small transport delay.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P4-STM-POWER",
+      "detector_class": "D5",
+      "purpose": "Steam turbine model generation chain.",
+      "inputs": [
+        "P4_ST_PS",
+        "P4_ST_LD",
+        "P4_ST_GOV",
+        "P4_ST_PT01",
+        "P4_ST_TT01",
+        "P4_ST_PO",
+        "P4_ST_FD"
+      ],
+      "monitored_invariant": "Output power is consistent with the load demand, the gate opening and the inlet steam conditions; the frequency deviation reflects the remaining imbalance.",
+      "training_requirement": "relationship-learning",
+      "confidence": "high"
+    },
+    {
+      "detector_id": "D5-P4-HTM-POWER",
+      "detector_class": "D5",
+      "purpose": "Hydro turbine model generation chain.",
+      "inputs": [
+        "P4_HT_PS",
+        "P4_HT_PO",
+        "P4_HT_FD",
+        "P3_FIT01",
+        "P3_PIT01",
+        "P3_LIT01"
+      ],
+      "monitored_invariant": "Hydro output power is consistent with the scheduled demand and with the discharge, inlet pressure and reservoir level measured in the physical water treatment process.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    },
+    {
+      "detector_id": "D5-P4-GRID-BALANCE",
+      "detector_class": "D5",
+      "purpose": "Grid-level generation and load balance.",
+      "inputs": [
+        "P4_LD",
+        "P4_ST_LD",
+        "P4_ST_PO",
+        "P4_HT_PO",
+        "P4_ST_FD",
+        "P4_HT_FD"
+      ],
+      "monitored_invariant": "Total generation matches the total load demand, and both frequency deviations reflect the same imbalance.",
+      "training_requirement": "relationship-learning",
+      "confidence": "low"
+    },
+    {
+      "detector_id": "D5-P2P4-SPEED-LINK",
+      "detector_class": "D5",
+      "purpose": "Simulator-to-turbine speed coupling.",
+      "inputs": [
+        "P4_ST_FD",
+        "P2_SCST",
+        "P2_AutoSD",
+        "P2_SIT01"
+      ],
+      "monitored_invariant": "The speed correction is proportional to the simulator frequency deviation and propagates into the automatic speed setpoint and the measured speed.",
+      "training_requirement": "relationship-learning",
+      "confidence": "medium"
+    }
+  ],
+  "routing": {
+    "P1_B2004": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-PC-LOOP"
+    ],
+    "P1_B2016": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-PC-LOOP"
+    ],
+    "P1_B3004": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-LC-LOOP"
+    ],
+    "P1_B3005": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-FC-LOOP"
+    ],
+    "P1_B4002": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-TC-LOOP"
+    ],
+    "P1_B4005": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-TC-LOOP"
+    ],
+    "P1_B400B": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-FC-LOOP"
+    ],
+    "P1_B4022": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-TC-LOOP"
+    ],
+    "P1_FCV01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-TC-LOOP",
+      "D5-P1-VALVE-TRACKING",
+      "D5-P1-HEAT-BALANCE"
+    ],
+    "P1_FCV01Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-TC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_FCV02D": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-TC-LOOP",
+      "D5-P1-VALVE-TRACKING",
+      "D5-P1-HEAT-BALANCE"
+    ],
+    "P1_FCV02Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-TC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_FCV03D": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-LC-LOOP",
+      "D5-P1-FC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_FCV03Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-FC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_FT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC"
+    ],
+    "P1_FT01Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-MASS-BALANCE",
+      "D5-P1-PUMP-HYDRAULICS"
+    ],
+    "P1_FT02": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-FC-LOOP"
+    ],
+    "P1_FT02Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-FC-LOOP",
+      "D5-P1-TC-LOOP",
+      "D5-P1-HEAT-BALANCE"
+    ],
+    "P1_FT03": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-FC-LOOP"
+    ],
+    "P1_FT03Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-FC-LOOP",
+      "D5-P1-MASS-BALANCE"
+    ],
+    "P1_LCV01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-LC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_LCV01Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-LC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_LIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-LC-LOOP",
+      "D5-P1-MASS-BALANCE"
+    ],
+    "P1_PCV01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-PRESSURE-PROTECTION",
+      "D5-P1-PC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_PCV01Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-PC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_PCV02D": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-PRESSURE-PROTECTION",
+      "D5-P1-PC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_PCV02Z": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P1-PC-LOOP",
+      "D5-P1-VALVE-TRACKING"
+    ],
+    "P1_PIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-PRESSURE-PROTECTION",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-PC-LOOP",
+      "D5-P1-HEAT-BALANCE",
+      "D5-P1-PUMP-HYDRAULICS",
+      "D5-P4-STEAM-TRANSFER"
+    ],
+    "P1_PIT01_HH": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-PRESSURE-PROTECTION"
+    ],
+    "P1_PIT02": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-HYDRAULIC",
+      "D5-P1-PUMP-HYDRAULICS"
+    ],
+    "P1_PP01AD": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_PP01AR": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D4-P1-SEQUENCE",
+      "D5-P1-PUMP-HYDRAULICS"
+    ],
+    "P1_PP01BD": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_PP01BR": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D4-P1-SEQUENCE",
+      "D5-P1-PUMP-HYDRAULICS"
+    ],
+    "P1_PP02D": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_PP02R": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D4-P1-SEQUENCE",
+      "D5-P1-PUMP-HYDRAULICS"
+    ],
+    "P1_PP04": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-CC-LOOP"
+    ],
+    "P1_PP04SP": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D5-P1-CC-LOOP"
+    ],
+    "P1_SOL01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_SOL03D": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_STSP": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P1-DISCRETE-CONSISTENCY",
+      "D3-P1-SETPOINT-CONFIG",
+      "D4-P1-SEQUENCE"
+    ],
+    "P1_TIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-TEMPERATURE",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-TC-LOOP",
+      "D5-P1-HEAT-BALANCE",
+      "D5-P4-STEAM-TRANSFER"
+    ],
+    "P1_TIT02": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-TEMPERATURE",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-HEAT-BALANCE"
+    ],
+    "P1_TIT03": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P1-TEMPERATURE",
+      "D4-P1-THERMAL-DYNAMICS",
+      "D5-P1-CC-LOOP"
+    ],
+    "P2_24Vdc": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P2-AUX-SUPPLY"
+    ],
+    "P2_ATSW_Lamp": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_AutoGo": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_AutoSD": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-SPEED-DYNAMICS",
+      "D5-P2-SC-LOOP",
+      "D5-P2P4-SPEED-LINK"
+    ],
+    "P2_Emerg": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_MASW": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-SPEED-DYNAMICS",
+      "D4-P2-DISCRETE-SEQUENCE",
+      "D5-P2-SC-LOOP"
+    ],
+    "P2_MASW_Lamp": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_ManualGO": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_ManualSD": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-SPEED-DYNAMICS",
+      "D5-P2-SC-LOOP"
+    ],
+    "P2_OnOff": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D1-P2-MODE-INTERLOCK",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_RTR": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC"
+    ],
+    "P2_SCO": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P2-SPEED-DYNAMICS",
+      "D5-P2-SC-LOOP"
+    ],
+    "P2_SCST": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P2P4-SPEED-LINK"
+    ],
+    "P2_SIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D3-P2-VIB-PATTERN",
+      "D4-P2-SPEED-DYNAMICS",
+      "D5-P2-SC-LOOP",
+      "D5-P2-VIB-SPEED",
+      "D5-P2P4-SPEED-LINK"
+    ],
+    "P2_TripEx": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D4-P2-DISCRETE-SEQUENCE"
+    ],
+    "P2_VIBTR01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D2-P2-VIBRATION",
+      "D3-P2-VIB-PATTERN",
+      "D5-P2-VIB-SPEED"
+    ],
+    "P2_VTR01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC"
+    ],
+    "P2_VIBTR02": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D2-P2-VIBRATION",
+      "D3-P2-VIB-PATTERN",
+      "D5-P2-VIB-SPEED"
+    ],
+    "P2_VTR02": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC"
+    ],
+    "P2_VIBTR03": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D2-P2-VIBRATION",
+      "D3-P2-VIB-PATTERN",
+      "D5-P2-VIB-SPEED"
+    ],
+    "P2_VTR03": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC"
+    ],
+    "P2_VIBTR04": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC",
+      "D2-P2-VIBRATION",
+      "D3-P2-VIB-PATTERN",
+      "D5-P2-VIB-SPEED"
+    ],
+    "P2_VTR04": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P2-TRIP-LOGIC"
+    ],
+    "P2_VT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P2-VIBRATION",
+      "D3-P2-VIB-PATTERN",
+      "D5-P2-VIB-SPEED"
+    ],
+    "P3_FIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P3-SENSORS",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS",
+      "D5-P4-HTM-POWER"
+    ],
+    "P3_LCP01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS"
+    ],
+    "P3_LCV01D": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS"
+    ],
+    "P3_LH01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P3-LEVEL-LIMITS",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS"
+    ],
+    "P3_LIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P3-LEVEL-LIMITS",
+      "D2-P3-SENSORS",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS",
+      "D5-P4-HTM-POWER"
+    ],
+    "P3_LL01": [
+      "D1-SIGNAL-VALIDITY",
+      "D1-P3-LEVEL-LIMITS",
+      "D4-P3-LEVEL-CYCLE",
+      "D5-P3-LOOP-HYDRAULICS"
+    ],
+    "P3_PIT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D2-P3-SENSORS",
+      "D5-P3-LOOP-HYDRAULICS",
+      "D5-P4-HTM-POWER"
+    ],
+    "P4_HT_FD": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P4-HTM-POWER",
+      "D5-P4-GRID-BALANCE"
+    ],
+    "P4_HT_PO": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-HTM-POWER",
+      "D5-P4-GRID-BALANCE"
+    ],
+    "P4_HT_PS": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P4-DISPATCH-CONFIG",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-HTM-POWER"
+    ],
+    "P4_LD": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P4-DISPATCH-CONFIG",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-GRID-BALANCE"
+    ],
+    "P4_ST_FD": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P4-STM-POWER",
+      "D5-P4-GRID-BALANCE",
+      "D5-P2P4-SPEED-LINK"
+    ],
+    "P4_ST_GOV": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-STM-POWER"
+    ],
+    "P4_ST_LD": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P4-DISPATCH-CONFIG",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-STM-POWER",
+      "D5-P4-GRID-BALANCE"
+    ],
+    "P4_ST_PO": [
+      "D1-SIGNAL-VALIDITY",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-STM-POWER",
+      "D5-P4-GRID-BALANCE"
+    ],
+    "P4_ST_PS": [
+      "D1-SIGNAL-VALIDITY",
+      "D3-P4-DISPATCH-CONFIG",
+      "D4-P4-DISPATCH-DYNAMICS",
+      "D5-P4-STM-POWER"
+    ],
+    "P4_ST_PT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P4-STEAM-TRANSFER",
+      "D5-P4-STM-POWER"
+    ],
+    "P4_ST_TT01": [
+      "D1-SIGNAL-VALIDITY",
+      "D5-P4-STEAM-TRANSFER",
+      "D5-P4-STM-POWER"
+    ]
+  },
+  "dependencies": [
+    {
+      "source": "D1-SIGNAL-VALIDITY",
+      "target": "all detectors",
+      "relationship": "Gating: a tag that fails range or slew validation invalidates every residual and configuration score computed from it."
+    },
+    {
+      "source": "P1_STSP / P2_OnOff (mode tags)",
+      "target": "all D2, D3 and D4 detectors",
+      "relationship": "Mode segmentation: statistics, configurations and dynamics must be calibrated per operating mode, not over pooled data."
+    },
+    {
+      "source": "D3-P1-SETPOINT-CONFIG",
+      "target": "D5-P1-PC-LOOP, D5-P1-LC-LOOP, D5-P1-FC-LOOP, D5-P1-TC-LOOP, D5-P1-CC-LOOP",
+      "relationship": "A setpoint configuration flagged as unseen makes the corresponding loop residuals uninterpretable rather than anomalous."
+    },
+    {
+      "source": "D1-P1-DISCRETE-CONSISTENCY",
+      "target": "D5-P1-PUMP-HYDRAULICS",
+      "relationship": "Pump hydraulic regimes are conditioned on the running states; a discrete inconsistency explains the hydraulic residual."
+    },
+    {
+      "source": "D5-P1-FC-LOOP",
+      "target": "D5-P1-LC-LOOP",
+      "relationship": "Documented feedforward: the outflow demand is an input of the level loop, so a flow-loop fault propagates into the level residual."
+    },
+    {
+      "source": "D5-P1-TC-LOOP",
+      "target": "D5-P1-HEAT-BALANCE",
+      "relationship": "Controller-based and physics-based views of the same heat exchanger; agreement of both isolates sensor faults from control faults."
+    },
+    {
+      "source": "P1 zone",
+      "target": "P4-STM zone",
+      "relationship": "Boiler outlet pressure and temperature are the steam inlet conditions of the steam turbine model."
+    },
+    {
+      "source": "D5-P4-STEAM-TRANSFER",
+      "target": "D5-P4-STM-POWER",
+      "relationship": "The steam-condition transfer must be verified before the simulated power residual can be attributed to the machine model."
+    },
+    {
+      "source": "P4-STM zone",
+      "target": "P2 zone",
+      "relationship": "The simulator frequency deviation generates the speed correction and the automatic speed setpoint of the physical turbine."
+    },
+    {
+      "source": "D5-P2P4-SPEED-LINK",
+      "target": "D5-P2-SC-LOOP",
+      "relationship": "An abnormal setpoint transfer must be excluded before a speed tracking residual is attributed to the turbine controller."
+    },
+    {
+      "source": "D1-P2-MODE-INTERLOCK",
+      "target": "D5-P2-SC-LOOP, D4-P2-SPEED-DYNAMICS",
+      "relationship": "Mode selection determines which speed setpoint is active and therefore which residual is defined."
+    },
+    {
+      "source": "D1-P2-TRIP-LOGIC",
+      "target": "D4-P2-SPEED-DYNAMICS",
+      "relationship": "A legitimate trip breaks the normal speed trajectory; the dynamics detector must be suppressed while the trip is latched."
+    },
+    {
+      "source": "P4-HTM zone",
+      "target": "P3 zone",
+      "relationship": "Pumping and discharge demands for the pump and valve are generated by the pumped-storage model."
+    },
+    {
+      "source": "P3 zone",
+      "target": "P4-HTM zone",
+      "relationship": "Measured discharge, inlet pressure and reservoir level determine the simulated hydro power output."
+    },
+    {
+      "source": "D4-P3-LEVEL-CYCLE",
+      "target": "D5-P4-HTM-POWER",
+      "relationship": "A disturbed reservoir cycle changes the hydro power residual without any fault in the simulator itself."
+    },
+    {
+      "source": "D5-P4-STM-POWER, D5-P4-HTM-POWER",
+      "target": "D5-P4-GRID-BALANCE",
+      "relationship": "Grid frequency is a shared consequence of both machines, so the grid residual is only meaningful once both machine residuals are clean."
+    }
+  ],
+  "unresolved": [
+    "Conflicting documentation for the cooling loop setpoint: the control diagram uses P1_PP04SP, while the normal-operation model lists P1_B2016 with a band of 26-28 for the same loop. P1_B2016 is simultaneously declared as the pressure loop setpoint with a band of 0.1-0.2 bar. The true cooling setpoint tag must be confirmed before D5-P1-CC-LOOP is calibrated.",
+    "Conflicting documentation for the flow loop setpoint: the control diagram uses P1_B3005 (return water tank discharge), while the normal-operation model lists P1_B400B (heating water tank outflow). The role of the second tag is unresolved; D5-P1-FC-LOOP currently carries both.",
+    "The relation between the demand tags (P1_B2016, P1_B4022) and the effective setpoint tags (P1_B2004, P1_B4002) is not documented. Whether the effective setpoint is a filtered, rate-limited or independent value determines whether the pair forms a valid residual.",
+    "P1_FT01 and P1_FT03 carry identical descriptions (flowrate of the return water tank) while their converted tags are described as inflow and outflow respectively. The flow direction of each transmitter must be confirmed before the mass balance is used.",
+    "The conversion function between the raw differential-pressure tags (0-2500 mmH2O) and the engineering flow tags (0-3190 l/h) is not given. It is needed both for the raw/engineering consistency check and for the tank mass balance gain.",
+    "Semantics of P1_PIT01_HH are ambiguous: a fixed high-high trip setting and a recorded running maximum require different rules. Its range is identical to the measurement itself.",
+    "Operating philosophy of the two main water pumps PP01A and PP01B (duty/standby, parallel, alternation schedule) is not documented, so the allowed joint state set is an assumption.",
+    "Interlock between the main tank supply valve P1_SOL01D and drain valve P1_SOL03D is assumed to be mutual exclusion. This must be validated; the conditions that trigger each valve are also unknown.",
+    "Whether P1_B4005 is the outer-cascade output feeding the inner flow controller, or the final valve demand, is not stated explicitly.",
+    "The turbine trip description is ambiguous about direction: it states that the turbine runs when the speed is above the trip rate, which contradicts the stated purpose of over-speed protection. The comparison convention for the signed vibration channels (signed value, magnitude, or band) is also unspecified.",
+    "P2_VTR04 is described as the limit for sensor P2_VIBTR03, which is most likely a typographical error for P2_VIBTR04.",
+    "P2_ManualSD has an engineering range of 0-3200 RPM but a declared normal command band of 11-12, which coincides with the range of the unrelated tag P2_VT01. Units and semantics need confirmation.",
+    "The gain, sign and exact role of P2_SCST are not documented beyond a proportionality to the simulator frequency deviation; it is unclear whether it is an input to the speed setpoint or a diagnostic output.",
+    "No nominal value or tolerance band is documented for the P2_24Vdc supply rail; only the transmitter range of 0-30 V is given.",
+    "All four P3 analog tags (P3_FIT01, P3_PIT01, P3_LCP01D, P3_LCV01D) are reported as raw 0-27648 counts with no engineering scaling, so the water treatment residuals cannot be validated dimensionally.",
+    "The discharge path of the water treatment process from the upper reservoir is not instrumented in this version, so the reservoir mass balance is only partially observable.",
+    "P4_HT_LD (hydro machine load demand) exists in HAI 20.07 and 21.03 but was removed from 22.04 and 23.05. The grid balance P4_LD against the sum of machine allocations therefore cannot be closed.",
+    "Unit inconsistency in the frequency deviation tags: P4_HT_FD is given in mHz and P4_ST_FD in Hz, yet both share a range of +/-0.02. A common unit must be established before a shared frequency invariant is defined.",
+    "The scaling and transport delay between P1_PIT01 / P1_TIT01 and their digitised counterparts P4_ST_PT01 / P4_ST_TT01 are not documented; they must be identified from normal data.",
+    "Per-tag acquisition behaviour on the OPC gateway (update rate, deadband, hold-last-value on communication loss) is not documented. This directly affects frozen-signal statistics and residual delay estimates.",
+    "No operating-mode labels are provided. Mode segmentation for the D2, D3 and D4 detectors must be derived from P1_STSP, P2_OnOff and P2_MASW, or supplied by an ICS engineer.",
+    "The four normal-operation files may not represent a single homogeneous configuration. Regime homogeneity must be checked before pooling them for calibration."
+  ]
+}
